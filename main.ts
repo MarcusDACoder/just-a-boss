@@ -12,6 +12,9 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.goodpo, function (sprite, otherSp
     pause(400)
 })
 statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 50, function (status) {
+    game.splash("Phase 3")
+    pauseUntil(() => controller.A.isPressed())
+    music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
     wait_time = 9
     fase = 2
     info.changeScoreBy(1)
@@ -20,6 +23,9 @@ sprites.onOverlap(SpriteKind.goodpo, SpriteKind.er, function (sprite, otherSprit
     sprites.destroy(mySprite3)
 })
 statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 75, function (status) {
+    game.splash("Phase 2")
+    pauseUntil(() => controller.A.isPressed())
+    music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
     wait_time = 9
     fase = 1
     info.changeScoreBy(1)
@@ -30,16 +36,22 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         pause(1000)
     } else {
         mySprite3 = sprites.create(img`
-            . . . . . . . . . . 
-            . . 5 5 5 5 5 5 . . 
-            . 5 4 4 4 4 4 4 5 . 
-            . 5 4 2 2 2 2 4 5 . 
-            . 5 4 2 2 2 2 4 5 . 
-            . 5 4 2 2 2 2 4 5 . 
-            . 5 4 2 2 2 2 4 5 . 
-            . 5 4 4 4 4 4 4 5 . 
-            . . 5 5 5 5 5 5 . . 
-            . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 2 2 2 . . . . . . . 
+            . . . . . 2 3 1 3 2 . . . . . . 
+            . . . . . 3 1 1 1 3 . . . . . . 
+            . . . . . 3 1 1 1 3 . . . . . . 
+            . . . . . 3 1 1 1 3 . . . . . . 
+            . . . . . 3 1 1 1 2 . . . . . . 
+            . . . . . 2 1 1 1 2 . . . . . . 
+            . . . . . 2 3 1 3 2 . . . . . . 
+            . . . . . . 3 1 3 . . . . . . . 
+            . . . . . . 2 1 2 . . . . . . . 
+            . . . . . . 2 1 2 . . . . . . . 
+            . . . . . . 2 1 2 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
             `, SpriteKind.goodpo)
         mySprite3.setPosition(mySprite.x, mySprite.y)
         mySprite3.setVelocity(0, -50)
@@ -47,6 +59,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
+    music.stopAllSounds()
+    music.play(music.melodyPlayable(music.wawawawaa), music.PlaybackMode.UntilDone)
     game.gameOver(true)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
@@ -54,6 +68,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     pause(1000)
 })
 statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 25, function (status) {
+    game.splash("Phase 4")
+    pauseUntil(() => controller.A.isPressed())
+    music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
     fase = 3
     pause(500)
     myEnemy.setVelocity(0, 0)
@@ -221,6 +238,9 @@ mySprite5.setPosition(74, 69)
 mySprite5.sayText("Press \"A\" to start")
 pauseUntil(() => controller.A.isPressed())
 sprites.destroy(mySprite5)
+music.play(music.melodyPlayable(music.magicWand), music.PlaybackMode.UntilDone)
+game.splash("Phase 1")
+game.splash("Ready?")
 statusbar = statusbars.create(150, 4, StatusBarKind.EnemyHealth)
 statusbar.setColor(2, 15)
 statusbar.setPosition(76, 5)
@@ -404,17 +424,7 @@ let mySprite4 = sprites.create(img`
 mySprite4.setPosition(72, 3)
 let important_shut = 1000
 forever(function () {
-    for (let index = 0; index < 2; index++) {
-        music.play(music.createSong(hex`0078000408030101001c000f05001202c102c20100040500280000006400280003140006020004900000000400011d04000800012208000c0001250c001000012710001400012414001800012518001c0001221c002000012420002400011d24002800012228002c0001252c003000012730003400012434003800012538003c0001223c004000012440004400011d44004800012248004c0001254c005000012750005400012454005800012558005c0001225c0060000124`), music.PlaybackMode.InBackground)
-        music.play(music.createSong(hex`0078000408030204001c00100500640000041e000004000000000000000000000000000a040004120000000800012220002800012240004800012205001c000f0a006400f4010a00000400000000000000000000000000000000021200000008000122200028000122400048000122`), music.PlaybackMode.UntilDone)
-    }
-    for (let index = 0; index < 4; index++) {
-        music.play(music.createSong(hex`0078000408030101001c000f05001202c102c20100040500280000006400280003140006020004900000000400011d04000800012208000c0001250c001000012710001400012414001800012518001c0001221c002000012420002400011d24002800012228002c0001252c003000012730003400012434003800012538003c0001223c004000012440004400011d44004800012248004c0001254c005000012750005400012454005800012558005c0001225c0060000124`), music.PlaybackMode.InBackground)
-        music.play(music.createSong(hex`0078000408030204001c00100500640000041e000004000000000000000000000000000a040004120000000800012220002800012240004800012205001c000f0a006400f4010a00000400000000000000000000000000000000021200000008000122200028000122400048000122`), music.PlaybackMode.InBackground)
-        music.play(music.createSong(hex`0078000408030300001c00010a006400f401640000040000000000000000000000000005000004480000000400012208000c00012710001400012518001c00012420002400012228002c00012730003400012538003c00012440004400012248004c00012750005400012558005c00012401001c000f05001202c102c20100040500280000006400280003140006020004480000000400012208000c00012710001400012518001c00012420002400012228002c00012730003400012538003c00012440004400012248004c00012750005400012558005c00012402001c000c960064006d019001000478002c010000640032000000000a060005480000000400012208000c00012710001400012518001c00012420002400012228002c00012730003400012538003c00012440004400012248004c00012750005400012558005c000124`), music.PlaybackMode.UntilDone)
-    }
-    music.play(music.createSong(hex`0078000408020101001c000f05001202c102c201000405002800000064002800031400060200042a0000000800012408001000012410001800012418002000012428003000012436003800012438003c000124`), music.PlaybackMode.UntilDone)
-    pause(1800)
+	
 })
 forever(function () {
     characterAnimations.loopFrames(
