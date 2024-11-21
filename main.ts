@@ -5,10 +5,10 @@ namespace SpriteKind {
     export const Text = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.goodpo, function (sprite, otherSprite) {
-    statusbar.value += -1
+    statusbar.value += 0.02
     sprites.destroyAllSpritesOfKind(SpriteKind.goodpo)
     pause(50)
-    statusbar.value += -1
+    statusbar.value += -0.2
     pause(400)
 })
 statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 50, function (status) {
@@ -64,7 +64,7 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     game.gameOver(true)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
-    info.changeLifeBy(-1)
+    info.changeLifeBy(-0.5)
     pause(1000)
 })
 statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 25, function (status) {
