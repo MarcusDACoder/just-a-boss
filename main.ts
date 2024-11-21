@@ -5,10 +5,10 @@ namespace SpriteKind {
     export const Text = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.goodpo, function (sprite, otherSprite) {
-    statusbar.value += 0.02
+    statusbar.value += -2
     sprites.destroyAllSpritesOfKind(SpriteKind.goodpo)
     pause(50)
-    statusbar.value += -0.2
+    statusbar.value += -2
     pause(400)
 })
 statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 50, function (status) {
@@ -58,16 +58,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         pause(500)
     }
 })
-statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
-    music.stopAllSounds()
-    music.play(music.melodyPlayable(music.wawawawaa), music.PlaybackMode.UntilDone)
-    game.gameOver(true)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
-    info.changeLifeBy(-0.5)
-    pause(1000)
-})
-statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 25, function (status) {
+statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusComparison.EQ, statusbars.ComparisonType.Percentage, 30, function (status) {
     game.splash("Phase 4")
     pauseUntil(() => controller.A.isPressed())
     music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
@@ -76,6 +67,15 @@ statusbars.onStatusReached(StatusBarKind.EnemyHealth, statusbars.StatusCompariso
     myEnemy.setVelocity(0, 0)
     info.changeScoreBy(1)
     myEnemy.setPosition(76, 23)
+})
+statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
+    music.stopAllSounds()
+    music.play(music.melodyPlayable(music.wawawawaa), music.PlaybackMode.UntilDone)
+    game.gameOver(true)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    pause(1000)
 })
 info.onLifeZero(function () {
     game.gameOver(false)
@@ -393,7 +393,8 @@ mySprite = sprites.create(img`
     . . . . . f f f f f f . . . . . 
     . . . . . f f . . f f . . . . . 
     `, SpriteKind.Player)
-info.setLife(20)
+info.setLife(30)
+statusbar.value += 2000
 myEnemy = sprites.create(img`
     ........................
     ........................
